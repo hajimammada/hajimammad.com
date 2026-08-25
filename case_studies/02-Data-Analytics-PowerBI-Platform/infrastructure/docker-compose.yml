@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  # Oracle Database for simulating the ERP source
+  oracledb:
+    image: container-registry.oracle.com/database/express:21.3.0-xe
+    environment:
+      - ORACLE_PWD=SysPassword1
+    ports:
+      - "1521:1521"
+    volumes:
+      - oracle_data:/opt/oracle/oradata
+    networks:
+      - erp_network
+
+  # PostgreSQL for the Analytics Data Warehouse
+  analytics_dwh:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: dw_admin
+      POSTGRES_PASSWORD: dw_password
+      POSTGRES_DB: analytics_warehouse
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    networks:
+      - erp_network
+
+volumes:
+  oracle_data:
+  pg_data:
+
+networks:
+  erp_network:
+    driver: bridge
