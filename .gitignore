@@ -1,4 +1,19 @@
-﻿.DS_Store
+﻿# Byte-compiled / cache files
+__pycache__/
+*.pyc
+
+# OS & IDE
+.vscode/
+.idea/
+.DS_Store
 Thumbs.db
 desktop.ini
-*.log
+
+# Dependencies
+node_modules/
+dist/
+build/
+
+# Trash
+trash/
+**/trash/
